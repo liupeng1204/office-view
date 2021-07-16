@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>文档预览</title>
+    <meta charset="utf-8">
+    <link href="./layout/styles/layout.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="./include/jquery_ui/themes/start/jquery-ui.min.css">
+    <script src="./include/jquery/jquery-1.12.4.min.js"></script>
+    <script src="./include/jquery_ui/jquery-ui.min.js"></script>
+    <!-- ################################ For files reder ###############################-->
+    <!--PDF-->
+    <link rel="stylesheet" href="./include/pdf/pdf.viewer.css">
+    <script src="./include/pdf/pdf.js"></script>
+    <!--Docs-->
+    <script src="./include/docx/jszip-utils.js"></script>
+    <script src="./include/docx/mammoth.browser.min.js"></script>
+    <!--PPTX-->
+    <link rel="stylesheet" href="./include/PPTXjs/css/pptxjs.css">
+    <link rel="stylesheet" href="./include/PPTXjs/css/nv.d3.min.css">
+    <link rel="stylesheet" href="./include/revealjs/reveal.css">
+
+    <script type="text/javascript" src="./include/PPTXjs/js/filereader.js"></script>
+    <script type="text/javascript" src="./include/PPTXjs/js/d3.min.js"></script>
+    <script type="text/javascript" src="./include/PPTXjs/js/nv.d3.min.js"></script>
+    <script type="text/javascript" src="./include/PPTXjs/js/pptxjs.js"></script>
+    <script type="text/javascript" src="./include/PPTXjs/js/divs2slides.js"></script>
+    <!--All Spreadsheet -->
+    <link rel="stylesheet" href="./include/SheetJS/handsontable.full.min.css">
+    <script type="text/javascript" src="./include/SheetJS/handsontable.full.min.js"></script>
+    <script type="text/javascript" src="./include/SheetJS/xlsx.full.min.js"></script>
+    <!--Image viewer-->
+    <link rel="stylesheet" href="./include/verySimpleImageViewer/css/jquery.verySimpleImageViewer.css">
+    <script type="text/javascript" src="./include/verySimpleImageViewer/js/jquery.verySimpleImageViewer.js"></script>
+    <!--officeToHtml-->
+    <script src="./include/officeToHtml/officeToHtml.js"></script>
+    <link rel="stylesheet" href="./include/officeToHtml/officeToHtml.css">
+</head>
+
+<body id="top">
+<div class="wrapper row3">
+    <main class="hoc container clear">
+        <div class="content three_quarter">
+            <div style="overflow: hidden;width: 100%; ">
+                <div id="resolte-contaniner" style="width: 100%; height:550px; overflow: auto;"></div>
+            </div>
+            <script>
+                function getUrlParam(paramField) {
+                    const query = window.location.search.substring(1)
+                    const params = query.split('&')
+                    const paramStr = params.find(p => {
+                        return p.split('=')[0] === paramField
+                    })
+                    return paramStr.split('=')[1]
+                }
+
+                function getFileName(url) {
+                    return url.slice(url.lastIndexOf('/') + 1)
+                }
+
+                function btnShowUrl() {
+                    const url = getUrlParam('url')
+                    const sign = getUrlParam('sign')
+                    const ext = getUrlParam('ext')
+                    const fileName = decodeURIComponent(getFileName(url))
+
+                    const remoteUrl = url + '?' + 'sign=' + sign
+                    $("#resolte-contaniner").officeToHtml({
+                        remoteUrl,
+                        ext
+                    });
+
+                    document.title = fileName
+                }
+
+                btnShowUrl()
+            </script>
+        </div>
+    </main>
+</div>
+</body>
+
+</html>
